@@ -1,22 +1,30 @@
-name : pipeline-tp1
+name: pipeline-tp1
+
 on:
   push:
-    branches: [ "master"]
+    branches: [ "master" ]
   pull_request:
-    branches:  [ "master"]
+    branches: [ "master" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v5
-      - name: Checout le repo git
-      - uses: actions/setup-node@v4
+      - name: Checkout du repo
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
           cache: 'npm'
+
       - name: Installer les dépendances
         run: npm ci
+
       - name: Lancer les tests
         run: npm test
-      - name : Lint le code
+
+      - name: Lint le code
         run: npm run lint
